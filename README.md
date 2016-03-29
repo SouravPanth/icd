@@ -17,14 +17,19 @@ Friendly input is expected.
 
 ## find-communities.py
 
-This script actually finds communities using the Louvain algorithm.
+This script detects communities using the Louvain algorithm.
 
-It takes as argument the filename of the edgelist of a weighted undirected network and outputs a Gephi-compatible nodelist with the communities at each level of the algorithm. 
+	python find-communities.py weighted-edgelist.csv resolution
+
+It takes as argument the filename of the edgelist of a weighted undirected network and outputs a Gephi-compatible nodelist with the communities at each level of the algorithm as node attributes. 
 An optional resolution parameter can be added as a second argument. 
+The default value is 1, and a value lower than 1 will give more communities whereas a value higher than 1 attempts to give fewer communities. 
 
 ## interpret-communities.py
 
 This script interprets the obtained communities by listing the composition of each community based on a node attribute. 
+
+	python interpret-communities.py communities.csv 1 nodeattributes 2
 
 It takes as 4 arguments twice a filename and the column of that filename to use. 
 It assumes that the first column of both files is the unique identifier of the row. 
