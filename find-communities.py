@@ -4,7 +4,7 @@
 # @author frank takes@uva.nl
 #
 # Requires Python >= 2.7
-# Requires NetworkX (pip install networkx) 
+# Requires NetworkX 1.8.1 or newer (pip install networkx) 
 # Requires community module: http://perso.crans.org/aynaud/communities/index.html / https://bitbucket.org/taynaud/python-louvain
 # Requires input file without (Gephi) column header line
 # To remove the first line of a file, use for example: sed '1d' filename 
