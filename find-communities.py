@@ -1,5 +1,5 @@
 # Find communities in a network using the Louvain algorithm and output the communities at each level of the algorithm
-# Input is argv[1], a (weighted) (undirected) network and optionally argv[2] a resolution parameter
+# Input is argv[1], a weighted undirected network and optionally argv[2] a resolution parameter
 # Output the communities at each iteration of the algorithm in columns as a Gephi-compatible nodelist
 # @author frank takes@uva.nl
 #
@@ -21,7 +21,6 @@ if(len(sys.argv) > 2):
 
 # read data from edges input file 
 G = networkx.Graph() # create a new undirected graph
-#G = networkx.DiGraph() # create a new directed graph
 G = networkx.read_edgelist(inputFile, nodetype=int, data=(('weight',int))) # read as int-weighted
 #G = networkx.read_edgelist(str(sys.argv[1]), nodetype=int) # read as unweighted
 sys.stderr.write("Done reading.\n")
