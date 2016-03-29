@@ -1,6 +1,7 @@
 # Find communities in a network using the Louvain algorithm and output the communities at each level of the algorithm
 # Input is argv[1], a weighted undirected network and optionally argv[2] a resolution parameter
 # Output the communities at each iteration of the algorithm in columns as a Gephi-compatible nodelist
+# 
 # @author frank takes@uva.nl
 #
 # Requires Python >= 2.7
