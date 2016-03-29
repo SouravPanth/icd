@@ -1,12 +1,10 @@
 # communities
 Algorithms and scripts for using the Louvain community detection method as described in:
 
-V.D. Blondel, J-L. Guillaume, R. Lambiotte and R. Lefebvre, 
+V.D. Blondel, J-L. Guillaume, R. Lambiotte and R. Lefebvre (2008), 
 Fast unfolding of communities in large networks, 
 _Journal of Statistical Mechanics: Theory and Experiment_ 2008(10), 
 P10008 (12 pages). 
-
-Laplacian Dynamics and Multiscale Modular Structure in Networks
 
 This repository builds on 
 [NetworkX](https://networkx.github.io) and
@@ -21,17 +19,17 @@ This script detects communities using the Louvain algorithm.
 
 	python find-communities.py weighted-edgelist.csv resolution
 
-It takes as argument the filename of the edgelist of a weighted undirected network and outputs a Gephi-compatible nodelist with the communities at each level of the algorithm as node attributes. 
-An optional resolution parameter can be added as a second argument. 
+It takes as first argument the filename of the edgelist of a weighted undirected network and outputs a Gephi-compatible nodelist with the communities at each level of the algorithm as node attributes. 
+An optional resolution parameter can be given as a second argument. 
 The default value is 1, and a value lower than 1 will give more communities whereas a value higher than 1 attempts to give fewer communities. 
 
 ## interpret-communities.py
 
 This script interprets the obtained communities by listing the composition of each community based on a node attribute. 
 
-	python interpret-communities.py communities.csv 1 nodeattributes 2
+	python interpret-communities.py communities.csv 1 nodeattributes.csv 2
 
-It takes as 4 arguments twice a filename and the column of that filename to use. 
+It takes 4 arguments: twice a filename and the column of that filename to use. 
 It assumes that the first column of both files is the unique identifier of the row. 
 The first file specifies the communities, the second file specifies the attributes to interpret the communities with.
 It then outputs the interpretation in terms of composition of the community defined by the integer in the column in the first file using the string of the column in the second file. 
