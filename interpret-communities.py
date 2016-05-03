@@ -11,7 +11,7 @@ import sys
 # where the input comes from
 communitiesFile = str(sys.argv[1])
 communitiesColumn = int(sys.argv[2])
-interpretFile = str(sys.argv[1])
+interpretFile = str(sys.argv[3])
 interpretColumn = int(sys.argv[4])
 
 # helpers and counters
