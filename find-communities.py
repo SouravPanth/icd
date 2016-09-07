@@ -1,9 +1,8 @@
 # Interpretable Community Detection - https://www.github.com/franktakes/icd
 # 
 # Goal: Find communities in a network using the Louvain algorithm.
-# Input: argv[1], a weighted undirected network and optionally argv[2]: a resolution parameter.
+# Input: argv[1], a (weighted) undirected network, optionally followed by argv[2], a resolution parameter.
 # Output: the communities at each iteration/level of the algorithm in columns as a Gephi-compatible nodelist.
-# Configure for weighted networks on line 27 (parameter of read_edgelist)
 #
 # @author Frank takes@uva.nl 
 #
@@ -16,21 +15,24 @@
 import networkx
 import sys
 import community 
+import string
 
 # set input variables
 inputFile = str(sys.argv[1])
-doResolution = 1.
+doResolution = 1. 
+weighted = False
 if(len(sys.argv) > 2):
-	doResolution = float(sys.argv[2])
+	doResolution = float(sys.argv[2])		
+sys.stderr.write("Using resolution " + str(doResolution) + ".\n")
 
 # read data from edges input file 
 G = networkx.Graph() # create a new undirected graph
-#G = networkx.read_edgelist(inputFile, nodetype=int, data=(('weight',int))) # read as int-weighted
-G = networkx.read_edgelist(str(sys.argv[1]), nodetype=int) # read as unweighted
+G = networkx.read_edgelist(inputFile, nodetype=int, data=(('weight',int))) # read as int-weighted
+# G = networkx.read_edgelist(inputFile, nodetype=int) # read as unweighted
 sys.stderr.write("Done reading.\n")
 
 # do community detection and get dendrograph of communities
-dendo = community.generate_dendrogram(G, part_init=None, resolution=doResolution, weight='weight') # TODO check weight parameter
+dendo = community.generate_dendrogram(G, part_init=None, resolution=doResolution, weight='weight') 
 
 # store communities at different levels
 parts = {}
