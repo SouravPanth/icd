@@ -1,13 +1,16 @@
-# Find communities in a network using the Louvain algorithm and output the communities at each level of the algorithm
-# Input is argv[1], a weighted undirected network and optionally argv[2] a resolution parameter
-# Output the communities at each iteration of the algorithm in columns as a Gephi-compatible nodelist
+# Interpretable Community Detection - https://www.github.com/franktakes/icd
 # 
-# @author frank takes@uva.nl
+# Goal: Find communities in a network using the Louvain algorithm.
+# Input: argv[1], a weighted undirected network and optionally argv[2]: a resolution parameter.
+# Output: the communities at each iteration/level of the algorithm in columns as a Gephi-compatible nodelist.
+# Configure for weighted networks on line 27 (parameter of read_edgelist)
+#
+# @author Frank takes@uva.nl 
 #
 # Requires Python >= 2.7
 # Requires NetworkX 1.8.1 or newer (pip install networkx) 
 # Requires community module: http://perso.crans.org/aynaud/communities/index.html / https://bitbucket.org/taynaud/python-louvain
-# Requires input file without (Gephi) column header line
+# Requires edge list input file without (e.g. Gephi's) column header line
 # To remove the first line of a file, use for example: sed '1d' filename 
 
 import networkx
@@ -22,12 +25,12 @@ if(len(sys.argv) > 2):
 
 # read data from edges input file 
 G = networkx.Graph() # create a new undirected graph
-G = networkx.read_edgelist(inputFile, nodetype=int, data=(('weight',int))) # read as int-weighted
-#G = networkx.read_edgelist(str(sys.argv[1]), nodetype=int) # read as unweighted
+#G = networkx.read_edgelist(inputFile, nodetype=int, data=(('weight',int))) # read as int-weighted
+G = networkx.read_edgelist(str(sys.argv[1]), nodetype=int) # read as unweighted
 sys.stderr.write("Done reading.\n")
 
 # do community detection and get dendrograph of communities
-dendo = community.generate_dendrogram(G, part_init=None, weight='weight', resolution=doResolution)
+dendo = community.generate_dendrogram(G, part_init=None, resolution=doResolution, weight='weight') # TODO check weight parameter
 
 # store communities at different levels
 parts = {}
@@ -35,11 +38,11 @@ for level in range(0, len(dendo)):
 	parts[level] = community.partition_at_level(dendo, level)
 levels = len(dendo)
 
-# just do plain community detection instead of nested
+# just do plain community detection instead of nested variant
 #levels = 1
 #parts[0] = community.best_partition(G) # find communities
 
-# output header
+# output header to stdout
 sys.stdout.write("Id")
 communitySize = {}
 for level in range(0, levels):
@@ -47,7 +50,7 @@ for level in range(0, levels):
 	communitySize[level] = -1
 sys.stdout.write("\n")
 
-# output
+# output nodelist with communities to stdout
 for x in parts[0]:
 	sys.stdout.write(str(x))
 	for level in range(0, levels):
